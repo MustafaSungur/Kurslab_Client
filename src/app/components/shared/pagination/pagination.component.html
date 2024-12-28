@@ -1,0 +1,32 @@
+<div class="flex justify-center items-center gap-2 mt-6">
+  <!-- Önceki Sayfa -->
+  <button
+    class="bg-gray-300 hover:bg-gray-400 px-4 py-2 rounded disabled:bg-gray-200 text-xl"
+    [disabled]="currentPage === 1"
+    (click)="onPageChange(currentPage - 1)"
+  >
+    <
+  </button>
+
+  <!-- Sayfa Numaraları -->
+  <ng-container *ngFor="let page of [].constructor(totalPages); let i = index">
+    <button
+      class="px-4 py-2 rounded"
+      [class.bg-amber-500]="currentPage === i + 1"
+      [class.text-white]="currentPage === i + 1"
+      [class.bg-gray-300]="currentPage !== i + 1"
+      (click)="onPageChange(i + 1)"
+    >
+      {{ i + 1 }}
+    </button>
+  </ng-container>
+
+  <!-- Sonraki Sayfa -->
+  <button
+    class="bg-gray-300 hover:bg-gray-400 px-4 py-2 rounded disabled:bg-gray-200 text-xl"
+    [disabled]="currentPage === totalPages"
+    (click)="onPageChange(currentPage + 1)"
+  >
+    >
+  </button>
+</div>

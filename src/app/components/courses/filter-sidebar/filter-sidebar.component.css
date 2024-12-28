@@ -1,0 +1,4 @@
+.filterside-bar {
+  z-index: 1050; /* Üstte görünmesini sağlar */
+  overflow: visible !important; /* Taşmaya izin verir */
+}

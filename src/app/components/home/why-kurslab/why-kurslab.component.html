@@ -1,0 +1,31 @@
+<section class="w-full py-12 md:py-24 lg:py-32 bg-gray-100">
+  <div class="container px-4 md:px-6 mx-auto">
+    <!-- Başlık -->
+    <h2
+      class="text-3xl text-zinc-600 font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-8"
+    >
+      Neden KursLab?
+    </h2>
+
+    <!-- Card  -->
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <p-card
+        *ngFor="let feature of features; let i = index"
+        class="flex flex-col"
+      >
+        <!-- Kart Başlık -->
+        <ng-template pTemplate="title">
+          <div class="flex items-center">
+            <i class="pi pi-check-circle text-amber-500 mr-2 text-2xl"></i>
+            {{ feature.title }}
+          </div>
+        </ng-template>
+
+        <!-- Kart İçerik -->
+        <ng-template pTemplate="content">
+          <p>{{ feature.description }}</p>
+        </ng-template>
+      </p-card>
+    </div>
+  </div>
+</section>

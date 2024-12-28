@@ -1,0 +1,139 @@
+<header
+  class="px-4 lg:px-44 h-14 flex items-center justify-between border-b py-10 bg-transparent relative"
+>
+  <!-- Logo -->
+  <a class="flex items-center" routerLink="/home">
+    <lucide-icon [img]="logo" class="text-amber-500 w-12 h-12"></lucide-icon>
+    <span class="ml-2 text-3xl font-bold">KursLab</span>
+  </a>
+
+  <!-- Large Screen Navbar -->
+  <nav class="hidden lg:flex items-center gap-8 ml-auto tracking-wider">
+    <a
+      class="text-lg hover:text-amber-700 underline-offset-4"
+      routerLink="/home"
+      routerLinkActive="active-link"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      Ana Sayfa
+    </a>
+    <a
+      class="text-lg hover:text-amber-700 underline-offset-4"
+      routerLink="/courses"
+      routerLinkActive="active-link"
+    >
+      Eğitimler
+    </a>
+    <ng-container *ngIf="userToken; else guestLinks">
+      <a
+        class="text-lg hover:text-amber-700 underline-offset-4"
+        routerLink="/dashboard"
+        routerLinkActive="active-link"
+      >
+        Profil
+      </a>
+      <span
+        (click)="logout()"
+        class="flex text-lg font-medium gap-1 cursor-pointer text-gray-700 hover:text-red-500 justify-center items-center"
+      >
+        Çıkış Yap
+        <lucide-icon [img]="logoutIcon" size="24"></lucide-icon>
+      </span>
+    </ng-container>
+    <ng-template #guestLinks>
+      <a
+        class="p-button bg-transparent text-lg hover:bg-slate-100"
+        routerLink="/auth/login"
+      >
+        Giriş Yap
+      </a>
+      <a
+        class="p-button bg-amber-500 hover:bg-amber-600 text-white text-lg px-4 py-2"
+        routerLink="/auth/register"
+        >Kayıt Ol</a
+      >
+    </ng-template>
+  </nav>
+
+  <!-- Hamburger Menu Button for Mobile -->
+  <div class="lg:hidden ml-auto">
+    <button
+      pButton
+      class="p-button-text"
+      (click)="toggleMenu()"
+      icon="pi pi-bars text-2xl"
+      *ngIf="!isOpen"
+    ></button>
+    <button
+      pButton
+      class="p-button-text"
+      (click)="toggleMenu()"
+      icon="pi pi-times text-2xl"
+      *ngIf="isOpen"
+    ></button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <p-sidebar [(visible)]="isOpen" [baseZIndex]="1000">
+    <nav
+      class="flex flex-col align-items-center justify-center text-center gap-8"
+    >
+      <a class="flex justify-center border-b pb-3" routerLink="/">
+        <lucide-icon
+          [img]="logo"
+          class="text-amber-500 w-10 h-10"
+        ></lucide-icon>
+        <span class="ml-2 text-3xl font-bold">KursLab</span>
+      </a>
+      <a
+        class="text-lg font-medium hover:text-amber-500"
+        routerLink="/home"
+        routerLinkActive="active-link"
+        (click)="toggleMenu()"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        Ana Sayfa
+      </a>
+      <a
+        class="text-lg font-medium hover:text-amber-500"
+        routerLink="/courses"
+        routerLinkActive="active-link"
+        (click)="toggleMenu()"
+      >
+        Eğitimler
+      </a>
+      <ng-container *ngIf="userToken; else mobileGuestLinks">
+        <a
+          class="text-lg font-medium hover:text-amber-500"
+          routerLink="/dashboard"
+          routerLinkActive="active-link"
+          (click)="toggleMenu()"
+        >
+          Profil
+        </a>
+        <button
+          pButton
+          class="p-button-text hover:text-red-600"
+          (click)="toggleMenu()"
+          label="Çıkış Yap"
+        ></button>
+      </ng-container>
+      <ng-template #mobileGuestLinks>
+        <button
+          pButton
+          class="text-lg"
+          routerLink="/auth/login"
+          label="Giriş Yap"
+          (click)="toggleMenu()"
+        ></button>
+        <button
+          pButton
+          class="bg-amber-500 hover:bg-amber-600 text-white text-lg px-4 py-1"
+          routerLink="/auth/register"
+          label="Kayıt Ol"
+          (click)="toggleMenu()"
+        ></button>
+      </ng-template>
+    </nav>
+  </p-sidebar>
+</header>

@@ -1,0 +1,22 @@
+<p-toast></p-toast>
+<p-confirmDialog #cd>
+  <ng-template let-message let-onAccept="onAccept">
+    <div
+      class="flex flex-col items-center p-8 bg-surface-0 dark:bg-surface-900 rounded"
+    >
+      <span>{{ dialogHeader }}</span>
+      <p class="mb-0">{{ dialogMessage }}</p>
+      <div class="flex items-center gap-2 mt-6 justify-between">
+        <button (onClick)="onAcceptDialog()" styleClass="w-32 bg-amber-500">
+          {{ acceptButtonLabel }}
+        </button>
+        <button (onClick)="cd.hide()" styleClass="w-32">İptal</button>
+      </div>
+    </div>
+  </ng-template>
+</p-confirmDialog>
+<p-button
+  (click)="confirm()"
+  [icon]="icon"
+  [label]="confirmButtonLabel"
+></p-button>

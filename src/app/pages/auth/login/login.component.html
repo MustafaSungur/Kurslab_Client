@@ -1,0 +1,106 @@
+<div class="flex min-h-screen lg:w-10/12 lg:m-auto">
+  <!-- Sol taraf - Login formu -->
+  <div
+    class="w-full lg:w-1/2 flex flex-col justify-center items-center p-8 lg:p-24"
+  >
+    <div class="w-full max-w-md">
+      <a routerLink="/">
+        <div class="flex items-center justify-center mb-8">
+          <lucide-icon
+            [img]="BookOpenIcon"
+            class="h-10 w-10 text-amber-500"
+          ></lucide-icon>
+          <span class="ml-2 text-3xl font-bold">KursLab</span>
+        </div>
+      </a>
+
+      <h1 class="text-2xl font-bold mb-6">Hesabınıza Giriş Yapın</h1>
+      <form
+        [formGroup]="loginForm"
+        (ngSubmit)="handleLogin()"
+        class="space-y-4"
+      >
+        <div class="space-y-2">
+          <label for="email" class="text-sm font-medium block">E-posta</label>
+          <div class="relative">
+            <input
+              id="email"
+              type="email"
+              placeholder="ornek@email.com"
+              formControlName="email"
+              class="pl-4 w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500"
+              required
+            />
+          </div>
+          <div
+            *ngIf="
+              loginForm.get('email')?.invalid && loginForm.get('email')?.touched
+            "
+            class="text-red-500 text-sm"
+          >
+            Lütfen geçerli bir e-posta girin.
+          </div>
+        </div>
+
+        <div class="space-y-2">
+          <label for="password" class="text-sm font-medium block">Şifre</label>
+          <div class="relative">
+            <input
+              id="password"
+              type="password"
+              placeholder="••••••••"
+              formControlName="password"
+              class="pl-4 w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500"
+              required
+            />
+          </div>
+          <div
+            *ngIf="
+              loginForm.get('password')?.invalid &&
+              loginForm.get('password')?.touched
+            "
+            class="text-red-500 text-sm"
+          >
+            Şifre girilmesi zorunludur.
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          [disabled]="loading"
+          class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-4 rounded-xl transition-colors duration-300"
+        >
+          Giriş Yap
+        </button>
+      </form>
+
+      <!-- Hata Mesajı -->
+      <div *ngIf="error" class="mt-4">
+        <div class="text-red-600 text-sm">{{ error }}</div>
+      </div>
+
+      <div class="mt-6 text-center">
+        <a href="#" class="text-sm text-amber-600 hover:underline"
+          >Şifrenizi mi unuttunuz?</a
+        >
+      </div>
+      <div class="mt-4 text-center">
+        <span class="text-sm text-gray-600">Hesabınız yok mu? </span>
+        <a
+          routerLink="/auth/register"
+          class="text-sm text-amber-600 hover:underline"
+          >Kaydolun</a
+        >
+      </div>
+    </div>
+  </div>
+
+  <!-- Sağ taraf - Görsel -->
+  <div class="hidden lg:block w-1/2 bg-amber-100">
+    <img
+      [src]="bgImage"
+      alt="Login görsel"
+      class="w-full h-full object-cover"
+    />
+  </div>
+</div>

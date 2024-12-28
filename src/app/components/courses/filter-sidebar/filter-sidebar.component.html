@@ -1,0 +1,63 @@
+<aside
+  class="w-72 bg-gray-100 p-4 sticky top-14 h-screen overflow-y-auto mt-12 filterside-bar"
+>
+  <form
+    [formGroup]="filterForm"
+    (ngSubmit)="onApplyFilters()"
+    class="space-y-4"
+  >
+    <!-- Kurs Ara -->
+    <input
+      placeholder="Kurs ara"
+      type="search"
+      formControlName="searchTerm"
+      class="py-2 px-2 w-full"
+    />
+
+    <!-- Kategori Dropdown -->
+    <div class="card flex justify-content-center">
+      <p-treeSelect
+        [options]="transformedCategories"
+        formControlName="category"
+        placeholder="Kategori"
+        class="md:w-80 w-full"
+        containerStyleClass="w-full"
+      ></p-treeSelect>
+    </div>
+
+    <!-- Etiketler -->
+    <div class="space-y-2">
+      <h3 class="font-semibold">Etiketler</h3>
+      <input
+        placeholder="Etiket ara"
+        type="search"
+        formControlName="searchTag"
+        class="py-2 px-2 w-full"
+      />
+
+      <div class="max-h-60 overflow-y-auto ps-1">
+        <div *ngFor="let tag of filteredTags" class="flex items-center gap-2">
+          <input [id]="tag.name" type="checkbox" (change)="toggleTag(tag.id)" />
+          <label [for]="tag.name">{{ tag.name }}</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filtreleri Uygula -->
+    <button
+      type="submit"
+      class="w-full bg-amber-500 hover:bg-amber-600 text-slate-100 text-base rounded-xl transition-all py-2"
+    >
+      Filtreyi Uygula
+    </button>
+
+    <!-- Filtreleri Sıfırla -->
+    <button
+      type="button"
+      (click)="onResetFilters()"
+      class="w-full bg-slate-500 hover:bg-slate-600 text-slate-100 text-base rounded-xl transition-all py-2"
+    >
+      Filtreyi Temizle
+    </button>
+  </form>
+</aside>

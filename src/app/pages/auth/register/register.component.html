@@ -1,0 +1,178 @@
+<div class="flex min-h-screen lg:w-10/12 lg:m-auto">
+  <!-- Sol taraf - Register formu -->
+  <div
+    class="w-full lg:w-1/2 flex flex-col justify-center items-center p-8 lg:p-24 overflow-y-auto"
+  >
+    <div class="w-full max-w-md">
+      <a routerLink="/">
+        <div class="flex items-center justify-center mb-8">
+          <lucide-icon
+            [img]="BookOpenIcon"
+            class="h-10 w-10 text-amber-500"
+          ></lucide-icon>
+          <span class="ml-2 text-3xl font-bold">KursLab</span>
+        </div>
+      </a>
+
+      <h1 class="text-2xl font-bold mb-6">Yeni Hesap Oluşturun</h1>
+      <form
+        [formGroup]="registerForm"
+        (ngSubmit)="handleRegister()"
+        class="space-y-4"
+      >
+        <div class="flex space-x-4">
+          <div class="space-y-2 flex-1">
+            <label for="firstName" class="text-sm font-medium block">Ad</label>
+            <div class="relative">
+              <input
+                id="firstName"
+                type="text"
+                placeholder="Adınız"
+                formControlName="firstName"
+                class="pl-4 w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                required
+              />
+            </div>
+          </div>
+          <div class="space-y-2 flex-1">
+            <label for="lastName" class="text-sm font-medium block"
+              >Soyad</label
+            >
+            <div class="relative">
+              <input
+                id="lastName"
+                type="text"
+                placeholder="Soyadınız"
+                formControlName="lastName"
+                class="pl-4 w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                required
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-2">
+          <label for="email" class="text-sm font-medium block">E-posta</label>
+          <div class="relative">
+            <input
+              id="email"
+              type="email"
+              placeholder="ornek@email.com"
+              formControlName="email"
+              class="pl-4 w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="space-y-2">
+          <label for="password" class="text-sm font-medium block">Şifre</label>
+          <div class="relative">
+            <input
+              id="password"
+              type="password"
+              placeholder="••••••••"
+              formControlName="password"
+              class="pl-4 w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="space-y-2">
+          <label for="confirmPassword" class="text-sm font-medium block"
+            >Şifre Tekrarı</label
+          >
+          <div class="relative">
+            <input
+              id="confirmPassword"
+              type="password"
+              placeholder="••••••••"
+              formControlName="confirmPassword"
+              class="pl-4 w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="space-y-2">
+          <label for="birthDate" class="text-sm font-medium block"
+            >Doğum Tarihi</label
+          >
+          <div class="relative">
+            <input
+              id="birthDate"
+              type="date"
+              formControlName="birthDate"
+              class="pl-4 w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="space-y-2">
+          <label for="image" class="text-sm font-medium block"
+            >Profil Resmi</label
+          >
+          <div class="flex items-center space-x-4">
+            <div
+              class="h-20 w-20 border border-gray-300 rounded-full bg-gray-100 flex items-center justify-center overflow-hidden"
+            >
+              <img
+                *ngIf="uploadedImage"
+                [src]="uploadedImage"
+                alt="Profil Resmi"
+                class="w-full h-full object-cover"
+              />
+              <div *ngIf="!uploadedImage" class="text-gray-500">Resim</div>
+            </div>
+            <label
+              for="imageFile"
+              class="cursor-pointer bg-gray-100 px-3 py-2 rounded-md hover:bg-gray-200 transition-colors"
+            >
+              <lucide-icon
+                [img]="uploadIcon"
+                class="inline-block h-4 w-4 mr-2"
+              ></lucide-icon>
+              Resim Yükle
+              <input
+                id="imageFile"
+                type="file"
+                (change)="onImageSelect($event)"
+                class="hidden"
+              />
+            </label>
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          [disabled]="loading"
+          class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-4 rounded-xl transition-colors duration-300"
+        >
+          Kayıt Ol
+        </button>
+      </form>
+
+      <div *ngIf="error" class="mt-4 text-red-500 text-center">{{ error }}</div>
+
+      <div class="mt-6 text-center">
+        <span class="text-sm text-gray-600"> Zaten bir hesabınız var mı? </span>
+        <a
+          routerLink="/auth/login"
+          class="text-sm text-amber-600 hover:underline"
+          >Giriş yapın</a
+        >
+      </div>
+    </div>
+  </div>
+
+  <!-- Sağ taraf - Görsel -->
+  <div class="hidden lg:block w-1/2 bg-amber-100">
+    <img
+      [src]="bgImage"
+      alt="Register görsel"
+      class="w-full h-full object-cover"
+    />
+  </div>
+</div>

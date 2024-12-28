@@ -1,0 +1,14 @@
+<section class="w-full py-12 md:py-24 lg:py-32">
+  <div class="container px-4 md:px-6 mx-auto">
+    <h2
+      class="text-3xl text-zinc-600 font-bold tracking-tighter sm:text-4xl md:text-5xl text-center mb-8"
+    >
+      Öne Çıkan Eğitimler
+    </h2>
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3 p-3 w-11/12 m-auto">
+      <ng-container *ngFor="let course of courses">
+        <app-main-course-card [course]="course"></app-main-course-card>
+      </ng-container>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,43 @@
+<section class="relative w-full py-12 md:py-24 lg:py-60 lg:h-max z-0">
+  <!-- Arka Plan Opaklığı -->
+  <div class="absolute inset-0 bg-black opacity-60 z-10 h-full"></div>
+
+  <!-- Arka Plan Videosu -->
+  <video
+    class="absolute inset-0 w-full h-full object-cover z-0"
+    autoplay
+    muted
+    loop
+    playsinline
+  >
+    <source src="{{ bgVideo }}" type="video/webm" />
+    Tarayıcınız video etiketini desteklemiyor.
+  </video>
+
+  <!-- İçerik -->
+  <div class="relative container px-4 md:px-6 mx-auto z-20">
+    <div class="flex flex-col items-center space-y-4 text-center">
+      <!-- Başlık -->
+      <h1
+        class="text-3xl font-bold tracking-tighter sm:text-5xl md:text-6xl text-white"
+      >
+        Öğrenmeye Başla, Kendini Geliştir
+      </h1>
+
+      <!-- Açıklama -->
+      <p class="max-w-[700px] text-gray-300 md:text-xl">
+        KursLab ile binlerce online eğitime erişin ve kariyerinizi bir üst
+        seviyeye taşıyın. Uzman eğitmenlerle, kendi hızınızda öğrenin.
+      </p>
+
+      <a routerLink="/courses" routerLinkActive="router-link-active">
+        <button
+          class="text-amber-500 bg-transparent border-4 border-amber-500 hover:bg-amber-500 hover:text-slate-100 text-lg px-9 py-3 rounded lg:mt-11 transition-all"
+        >
+          Hemen Başla
+          <i class="ml-4 pi pi-arrow-right font-bold"></i>
+        </button>
+      </a>
+    </div>
+  </div>
+</section>
