@@ -1,0 +1,103 @@
+<p-card class="p-5">
+  <p-treeTable [value]="getCategory" [scrollable]="true" styleClass="w-full">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Kategori</th>
+        <th class="flex justify-end gap-10">
+          <div class="flex gap-4">
+            <input
+              type="text"
+              placeholder="Kategori Ara...."
+              class="outline-none border border-amber-500 p-2 rounded-xl font-thin"
+              [formControl]="serachCategory"
+            />
+            <button *ngIf="serachCategory.value" (click)="clear()">X</button>
+          </div>
+          <button
+            (click)="toggleModal()"
+            class="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded flex items-center"
+          >
+            <lucide-icon [img]="createIcon" class="mr-2 h-4 w-4"></lucide-icon>
+            Kategori Oluştur
+          </button>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-category let-level="level">
+      <tr class="border">
+        <td>
+          <p-treeTableToggler [rowNode]="category"></p-treeTableToggler>
+          {{ category.node.label }}
+        </td>
+        <td class="flex justify-end">
+          <button
+            (click)="toggleModal(category)"
+            pButton
+            icon="pi pi-pencil"
+            class="p-button-text p-button-rounded"
+          ></button>
+          <button
+            (click)="deleteCategory(category)"
+            pButton
+            icon="pi pi-trash"
+            class="p-button-text p-button-rounded"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-treeTable>
+</p-card>
+
+<p-dialog
+  [visible]="IsDialogOpen"
+  [modal]="true"
+  [closable]="false"
+  header="Kategori"
+  styleClass="w-4/12 relative"
+  [responsive]="true"
+>
+  <div class="flex flex-col gap-6 p-5 overflow-visible">
+    <div class="flex flex-col gap-6">
+      <div *ngIf="!selectedCategory">
+        <label for="parent">Üst Kategori</label>
+
+        <p-treeSelect
+          id="parent"
+          [options]="categories"
+          [formControl]="parentCategory"
+          placeholder="Üst Kategori"
+          appendTo="body"
+          containerStyleClass="w-full mt-1 border "
+        ></p-treeSelect>
+      </div>
+      <div>
+        <label for="categoryName">Kategori Adı</label>
+        <input
+          id="categoryName"
+          type="text"
+          [formControl]="newCategory"
+          class="pl-4 w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500 mt-1"
+          placeholder="Kategori Adı"
+        />
+      </div>
+    </div>
+
+    <div class="flex justify-between gap-5 mt-10">
+      <button
+        type="button"
+        class="w-full bg-red-500 hover:bg-red-600 text-slate-100 text-base rounded-xl transition-all py-2"
+        (click)="clear()"
+      >
+        İptal
+      </button>
+      <button
+        (click)="editOrCreateCategory()"
+        type="button"
+        class="w-full bg-amber-500 hover:bg-amber-600 text-slate-100 text-base rounded-xl transition-all py-2"
+      >
+        <span *ngIf="selectedCategory; else create">Güncelle</span>
+        <ng-template #create>Oluştur</ng-template>
+      </button>
+    </div>
+  </div>
+</p-dialog>

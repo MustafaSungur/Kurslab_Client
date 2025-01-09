@@ -1,0 +1,87 @@
+<p-card class="p-5">
+  <p-table [value]="getTags" [scrollable]="true">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Etiketler</th>
+        <th class="flex justify-end gap-10">
+          <div class="flex gap-4">
+            <input
+              type="text"
+              placeholder="Etiket Ara...."
+              class="outline-none border border-amber-500 p-2 rounded-xl font-thin"
+              [formControl]="searchTag"
+            />
+            <button *ngIf="searchTag.value" (click)="clear()">X</button>
+          </div>
+          <button
+            (click)="toggleModal()"
+            class="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded flex items-center"
+          >
+            <lucide-icon [img]="createIcon" class="mr-2 h-4 w-4"></lucide-icon>
+            Etiket Oluştur
+          </button>
+        </th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-tag>
+      <tr class="border">
+        <td>{{ tag.name }}</td>
+        <div class="flex justify-end">
+          <button
+            (click)="toggleModal(tag)"
+            pButton
+            icon="pi pi-pencil"
+            class="p-button-text p-button-rounded"
+          ></button>
+          <button
+            pButton
+            (click)="deleteTag(tag)"
+            icon="pi pi-trash"
+            class="p-button-text p-button-rounded"
+          ></button>
+        </div>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-card>
+
+<p-dialog
+  [(visible)]="IsDialogOpen"
+  [modal]="true"
+  [closable]="false"
+  header="Etiket"
+  styleClass="w-4/12"
+  [responsive]="true"
+>
+  <div class="flex flex-col gap-6">
+    <div class="field">
+      <label for="tagName">Etiket Adı</label>
+      <input
+        id="tagName"
+        type="text"
+        [formControl]="newTag"
+        class="pl-4 w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500 mt-1"
+        placeholder="Etiket Adı"
+      />
+    </div>
+
+    <div class="flex justify-between gap-5 mt-10">
+      <button
+        type="button"
+        class="w-full bg-red-500 hover:bg-red-600 text-slate-100 text-base rounded-xl transition-all py-2"
+        (click)="clear()"
+      >
+        İptal
+      </button>
+      <button
+        (click)="editOrCreateTag()"
+        type="button"
+        class="w-full bg-amber-500 hover:bg-amber-600 text-slate-100 text-base rounded-xl transition-all py-2"
+      >
+        <span *ngIf="selectedTag; else create">Güncelle</span>
+        <ng-template #create>Oluştur</ng-template>
+      </button>
+    </div>
+  </div>
+</p-dialog>

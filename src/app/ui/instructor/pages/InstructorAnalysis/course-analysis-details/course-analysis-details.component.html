@@ -1,0 +1,59 @@
+<main class="flex-1 lg:p-0 overflow-auto mb-10">
+  <div class="lg:w-11/12 m-auto">
+    <h1 class="text-3xl font-bold mb-6 pt-6">{{ course?.title }} - Analiz</h1>
+
+    <div class="grid gap-6 mb-8 md:grid-cols-2 lg:grid-cols-4">
+      <!-- Toplam İzlenme -->
+      <p-card header="Toplam İzlenme">
+        <div class="text-2xl font-bold">{{ course?.viewCount }}</div>
+      </p-card>
+
+      <!-- Ortalama Puan -->
+      <p-card header="Ortalama Puan">
+        <div class="text-2xl font-bold">{{ course?.rating }}</div>
+      </p-card>
+
+      <!-- Toplam Değerlendirme -->
+      <p-card header="Toplam Değerlendirme">
+        <div class="text-2xl font-bold">{{ course?.ratingCount }}</div>
+      </p-card>
+
+      <!-- Eğitmen -->
+      <p-card header="Eğitmen">
+        <div class="text-2xl font-bold">
+          {{ course?.createdUser?.firstName }}
+          {{ course?.createdUser?.lastName }}
+        </div>
+      </p-card>
+    </div>
+
+    <!-- Yorumlar -->
+    <p-card styleClass="p-0">
+      <div class="font-bold text-2xl pb-5">Yorumlar</div>
+      <div>
+        <p-table [value]="comments">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Kullanıcı</th>
+              <th>Yorum</th>
+              <th>Beğeni Sayısı</th>
+              <th>Tarih</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-comment>
+            <tr class="border">
+              <td class="font-medium">
+                {{ comment.user.firstName }} {{ comment.user.lastName }}
+              </td>
+              <td>{{ comment.description }}</td>
+              <td>{{ comment.likes?.$values?.length }}</td>
+              <td>
+                {{ comment.createdDate | date : "dd.MM.yyyy" }}
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </p-card>
+  </div>
+</main>

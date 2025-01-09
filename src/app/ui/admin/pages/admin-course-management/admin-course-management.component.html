@@ -1,0 +1,190 @@
+<div class="lg:h-screen mx-auto overflow-auto pb-10 p-5">
+  <h1 class="text-3xl font-bold mb-6">Eğitim Yönetimi</h1>
+
+  <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-3">
+    <p-card header="Toplam Eğitim">
+      <ng-template pTemplate="content">
+        <div class="text-2xl font-bold">
+          {{ contentAnalysis?.totalCourses }}
+        </div>
+      </ng-template>
+    </p-card>
+
+    <p-card header="Toplam İzlenme">
+      <ng-template pTemplate="content">
+        <div class="text-2xl font-bold">{{ contentAnalysis?.totalViews }}</div>
+      </ng-template>
+    </p-card>
+  </div>
+
+  <div class="grid gap-6 mb-8 md:grid-cols-2">
+    <p-card header="Kategorilere Göre Eğitim Sayısı">
+      <ng-template pTemplate="content">
+        <p-chart
+          type="bar"
+          [data]="barChartData"
+          [options]="barChartOptions"
+          height="30rem"
+        ></p-chart>
+      </ng-template>
+    </p-card>
+
+    <p-card header="Kategorilere Göre İzlenme">
+      <ng-template pTemplate="content">
+        <p-chart
+          type="pie"
+          [data]="pieChartData"
+          [options]="pieChartOptions"
+          height="30rem"
+        ></p-chart>
+      </ng-template>
+    </p-card>
+  </div>
+
+  <p-card header="Eğitim Listesi">
+    <ng-template pTemplate="content">
+      <div
+        class="flex flex-col gap-5 md:flex-row space-y-4 md:space-y-0 md:space-x-4 mb-4"
+      >
+        <div class="flex relative gap-2 border rounded-xl p-1">
+          <lucide-icon
+            [img]="searchIcon"
+            class="text-gray-400 h-4 w-4 my-auto"
+          />
+          <input
+            type="text"
+            placeholder="Eğitim ara..."
+            [formControl]="searchTerm"
+            class="outline-none"
+          />
+        </div>
+
+        <p-treeSelect
+          [options]="categories"
+          [formControl]="categoryId"
+          placeholder="Kategori"
+          class="md:w-80 w-full"
+          containerStyleClass="w-full"
+        ></p-treeSelect>
+
+        <button
+          type="button"
+          (click)="resetFilters()"
+          class="text-amber-500 font-bold"
+        >
+          Filtreyi Sıfırla
+        </button>
+      </div>
+
+      <p-table [value]="contents">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Eğitim Adı</th>
+            <th>Eğitmen</th>
+            <th>Yorum Sayısı</th>
+            <th>Değerlendirme</th>
+            <th>Değerlendiren Sayısı</th>
+            <th>İzlenme Sayısı</th>
+            <th>İşlemler</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-content>
+          <tr class="border">
+            <td>{{ content.title }}</td>
+            <td>
+              {{ content.createdUser.firstName }}
+              {{ content.createdUser.lastName }}
+            </td>
+            <td>{{ content.commentCount }}</td>
+            <td>{{ content.rating.toFixed(1) }}</td>
+            <td>{{ content.ratingCount }}</td>
+            <td>{{ content.viewCount }}</td>
+            <td>
+              <button
+                pButton
+                (click)="toggleCommentModal(content)"
+                icon="pi pi-comment"
+                class="p-button-text"
+              ></button>
+              <button
+                pButton
+                icon="pi pi-trash"
+                class="p-button-text"
+                (click)="deleteContent(content.id)"
+              ></button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </ng-template>
+    <ng-template pTemplate="footer">
+      <app-pagination
+        [currentPage]="currentPage"
+        [totalPages]="totalPages"
+        (pageChange)="onPageChange($event)"
+      ></app-pagination>
+    </ng-template>
+  </p-card>
+</div>
+
+<p-dialog [(visible)]="isContentCommentsOpen" [style]="{ width: '50vw' }">
+  <ng-template pTemplate="header">
+    <span class="text-xl font-bold">
+      {{ selectedContents?.title }} İçeriğine Ait Yorumlar
+    </span>
+  </ng-template>
+  <ng-template pTemplate="content">
+    <div class="mb-4 relative">
+      <input
+        type="text"
+        placeholder="Yorum ara..."
+        [formControl]="commentSearchTerm"
+        class="pl-10 form-control border outline-none p-2 rounded-xl"
+      />
+      <lucide-icon
+        [img]="searchIcon"
+        class="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400"
+      ></lucide-icon>
+      <button
+        *ngIf="commentSearchTerm.value"
+        (click)="resetCommentFilter()"
+        class="ml-2"
+      >
+        X
+      </button>
+    </div>
+    <p-table [value]="getFilteredComments">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Ad Soyad</th>
+          <th>Yorum</th>
+          <th>Tarih</th>
+          <th>İşlem</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-comment>
+        <tr class="border">
+          <td>{{ comment.user.firstName }} {{ comment.user.lastName }}</td>
+          <td>{{ comment.description }}</td>
+          <td>{{ comment.createdDate | date : "dd.MM.yyyy" }}</td>
+          <td>
+            <button
+              pButton
+              icon="pi pi-trash"
+              class="p-button-danger"
+              (click)="deleteComment(comment.id)"
+            ></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <button
+      class="px-3 py-1 bg-red-500 hover:bg-red-600 transition-all text-white rounded-2xl"
+      (click)="toggleCommentModal()"
+    >
+      Kapat
+    </button>
+  </ng-template>
+</p-dialog>

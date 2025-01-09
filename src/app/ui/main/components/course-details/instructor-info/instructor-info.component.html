@@ -1,0 +1,23 @@
+<div class="flex items-center mt-4" *ngIf="instructor">
+  <p-avatar
+    *ngIf="instructor.image"
+    [image]="instructorImage"
+    size="large"
+    styleClass="mr-4 w-16 h-16"
+    shape="circle"
+  ></p-avatar>
+  <p-avatar
+    *ngIf="!instructor.image"
+    label="{{ getInitials() }}"
+    size="large"
+    styleClass="mr-4"
+    shape="circle"
+  ></p-avatar>
+
+  <div>
+    <h2 class="text-xl font-semibold">
+      {{ instructor?.firstName }} {{ instructor?.lastName }}
+    </h2>
+    <p class="text-sm text-gray-500">Eğitmen</p>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+<aside class="w-72 h-screen bg-white shadow-md">
+  <h2 class="text-2xl font-bold mb-4 p-5 pb-2 text-center">Eğitmen Paneli</h2>
+  <nav class="flex flex-col gap-3">
+    <a
+      [routerLink]="['/instructor', user.userID, 'edit']"
+      routerLinkActive="active-link"
+      class="hover:bg-gray-100 p-4 rounded flex justify-center"
+    >
+      <lucide-icon [img]="pencil" class="mr-2 h-4 w-4" />
+      Eğitimlerimi Yönet
+    </a>
+    <a
+      [routerLink]="['/instructor', user.userID, 'analysis']"
+      routerLinkActive="active-link"
+      class="p-4 mt-2 hover:bg-gray-100 rounded flex justify-center"
+    >
+      <lucide-icon [img]="barChart2" class="mr-2" />
+      Eğitim Analizleri
+    </a>
+  </nav>
+</aside>

@@ -1,0 +1,149 @@
+<div class="flex flex-col min-h-screen">
+  <main class="flex-1 py-12 px-4 md:px-6">
+    <div class="container mx-auto max-w-2xl">
+      <h1
+        class="text-3xl font-bold text-center sm:text-4xl mb-8 text-zinc-600 tracking-wide"
+      >
+        Hesabım
+      </h1>
+
+      <!-- Profile Information -->
+      <section class="mb-8">
+        <h2 class="text-2xl font-semibold mb-4">Profil Bilgileri</h2>
+        <div class="flex items-center space-x-4 mb-4">
+          <p-avatar styleClass="h-20 w-20" shape="circle">
+            <img
+              [appResourceUrl]="userProfileData?.image"
+              [defaultUrl]="defaultProfileImage"
+              alt="{{ userProfileData?.firstName }}"
+              class="h-full w-full rounded-full object-cover"
+            />
+          </p-avatar>
+          <div>
+            <h3 class="text-xl font-semibold">
+              {{ userProfileData?.firstName }} {{ userProfileData?.lastName }}
+            </h3>
+            <p class="text-sm text-gray-500">{{ userProfileData?.email }}</p>
+          </div>
+        </div>
+        <button
+          *ngIf="user.role !== 'Admin'"
+          class="w-full sm:w-auto border transition-all border-gray-300 text-gray-700 bg-white hover:bg-gray-100 rounded px-4 py-2"
+          (click)="openDialog()"
+        >
+          Profili Güncelle
+        </button>
+      </section>
+
+      <!-- Account Actions -->
+      <section>
+        <h2 class="text-2xl font-semibold mb-4">Hesap İşlemleri</h2>
+        <div class="space-y-4">
+          <a routerLink="/dashboard/history/{{ user.userID }}" class="w-full">
+            <button
+              class="w-full bg-amber-500 hover:bg-amber-600 text-white rounded px-4 py-2 transition-all"
+            >
+              İzlediğim Eğitimler
+            </button>
+          </a>
+
+          <button
+            class="w-full border border-gray-300 text-gray-700 bg-white transition-all hover:bg-gray-100 rounded px-4 py-2"
+            *ngIf="user.role === 'User'"
+            (click)="activateInstructor()"
+          >
+            Eğitmen Ol
+          </button>
+          <button
+            class="w-full border border-gray-300 text-gray-700 bg-white transition-all hover:bg-gray-100 rounded px-4 py-2"
+            *ngIf="user.role === 'UserAndInstructor'"
+            [routerLink]="['/instructor', user.userID]"
+          >
+            Eğitmen Paneli
+          </button>
+          <button
+            class="w-full border border-gray-300 text-gray-700 bg-white transition-all hover:bg-gray-100 rounded px-4 py-2"
+            *ngIf="user.role === 'Admin'"
+            [routerLink]="['/admin', 'users']"
+          >
+            Admin Paneli
+          </button>
+          <button
+            class="w-full bg-red-500 hover:bg-red-600 text-white rounded px-4 py-2 transition-all"
+            (click)="deleteAccount()"
+          >
+            Hesabı Sil
+          </button>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
+
+<p-dialog
+  [(visible)]="displayProfileDialog"
+  [modal]="true"
+  [closable]="true"
+  header="Profili Güncelle"
+  styleClass="w-4/12"
+  [responsive]="true"
+>
+  <form [formGroup]="profileForm" (ngSubmit)="updateProfile()">
+    <div class="flex flex-col gap-6">
+      <div class="field">
+        <label for="firstName">Ad</label>
+        <input
+          id="firstName"
+          type="text"
+          formControlName="firstName"
+          class="pl-4 w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500"
+          placeholder="Adınızı giriniz"
+        />
+      </div>
+      <div class="field">
+        <label for="lastName">Soyad</label>
+        <input
+          id="lastName"
+          type="text"
+          formControlName="lastName"
+          class="pl-4 w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500"
+          placeholder="Soyadınızı giriniz"
+        />
+      </div>
+      <div class="field">
+        <label for="profilePhoto">Profil Fotoğrafı</label>
+        <p-fileUpload
+          #imageUpload
+          mode="basic"
+          name="profilePhoto"
+          (onSelect)="onFileSelect($event, imageUpload)"
+          [auto]="true"
+          chooseLabel="Fotoğraf Seç"
+          accept="image/*"
+        ></p-fileUpload>
+        <div *ngIf="previewUrl" class="mt-2">
+          <img
+            [src]="previewUrl"
+            alt="Profile Preview"
+            class="w-24 h-24 object-cover rounded-full border"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="flex justify-between gap-5 mt-10">
+      <button
+        type="button"
+        class="w-full bg-red-500 hover:bg-red-600 text-slate-100 text-base rounded-xl transition-all py-2"
+        (click)="cancelUpdate()"
+      >
+        İptal
+      </button>
+      <button
+        type="submit"
+        class="w-full bg-amber-500 hover:bg-amber-600 text-slate-100 text-base rounded-xl transition-all py-2"
+      >
+        Güncelle
+      </button>
+    </div>
+  </form>
+</p-dialog>

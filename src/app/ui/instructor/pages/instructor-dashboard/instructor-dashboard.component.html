@@ -1,0 +1,44 @@
+<main class="lg:p-5 overflow-auto flex-col w-full h-screen">
+  <div class="flex justify-between items-center lg:mx-auto lg:w-11/12 mb-10">
+    <h1 class="text-2xl lg:text-3xl font-bold">Eğitimlerimi Yönet</h1>
+    <button
+      (click)="uploadToogleModal()"
+      class="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded flex items-center"
+    >
+      <lucide-icon [img]="uploadIcon" class="mr-2 h-4 w-4"></lucide-icon> Eğitim
+      Yükle
+    </button>
+  </div>
+
+  <ng-container *ngIf="courses.length > 0; else noCourses">
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4 lg:p-7 mx-auto">
+      <div *ngFor="let course of courses">
+        <app-instructor-course-card
+          [course]="course"
+          [categories]="categories"
+          [tags]="tags"
+        ></app-instructor-course-card>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-template #noCourses>
+    <div class="text-center py-12">
+      <lucide-icon
+        [img]="bookOpenIcon"
+        class="mx-auto h-12 w-12 text-gray-400"
+      ></lucide-icon>
+      <h2 class="mt-2 text-lg font-medium text-gray-900">
+        Henüz Eğitiminiz Yok
+      </h2>
+    </div>
+  </ng-template>
+</main>
+
+<app-upload-modal
+  [visible]="uploadModalVisible"
+  (visibleChange)="uploadModalVisible = $event"
+  [categories]="categories"
+  [tags]="tags"
+  [reloadData]="reloadData.bind(this)"
+></app-upload-modal>

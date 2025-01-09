@@ -1,0 +1,47 @@
+<div
+  class="flex flex-col min-h-screen lg:w-11/12 mx-auto w-11/12 transition-all"
+>
+  <main class="flex-1 flex">
+    <div
+      [ngClass]="{
+        'translate-x-0 opacity-100': isOpenSidebar,
+        '-translate-x-full opacity-0': !isOpenSidebar
+      }"
+      class="fixed top-0 left-0 h-full w-64 bg-transparent shadow-lg z-50 transform transition-transform duration-300 lg:hidden"
+    >
+      <div class="flex relative">
+        <app-filter-sidebar (filtersChanged)="onFiltersChanged($event)" />
+        <i
+          (click)="toggleSidebar()"
+          [ngClass]="{'hidden':!isOpenSidebar,}"
+          class="pi pi-times text-2xl absolute top-16 left-72 px-3 py-2 text-white rounded-full bg-red-500"
+        ></i>
+      </div>
+    </div>
+
+    <div class="hidden lg:inline-block">
+      <app-filter-sidebar (filtersChanged)="onFiltersChanged($event)" />
+    </div>
+    <section class="flex-1 py-12 px-4 md:px-10 lg:px-3">
+      <div class="container mx-auto">
+        <div class="flex gap-5">
+          <i
+            class="pi pi-bars text-3xl lg:hidden"
+            (click)="toggleSidebar()"
+          ></i>
+          <h1
+            class="text-3xl lg:text-4xl font-bold tracking-tighter mb-8 text-zinc-600"
+          >
+            Eğitimleri Keşfet
+          </h1>
+        </div>
+        <app-course-list [courses]="courses" />
+      </div>
+      <app-pagination
+        [currentPage]="currentPage"
+        [totalPages]="totalPages"
+        (pageChange)="onPageChange($event)"
+      ></app-pagination>
+    </section>
+  </main>
+</div>

@@ -1,0 +1,88 @@
+<div class="p-4 lg:p-5 overflow-auto h-screen pb-6">
+  <div class="lg:w-11/12 mx-auto mb-10">
+    <h1 class="text-2xl lg:text-3xl font-bold mb-6">Eğitim Analizleri</h1>
+
+    <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-8">
+      <p-card header="Toplam İzlenme">
+        <ng-template pTemplate="content">
+          <div class="text-2xl font-bold">{{ totalViews }}</div>
+        </ng-template>
+      </p-card>
+      <p-card header="Ortalama Puan">
+        <ng-template pTemplate="content">
+          <div class="text-2xl font-bold">{{ averageRating.toFixed(1) }}</div>
+        </ng-template>
+      </p-card>
+      <p-card header="Toplam Yorum">
+        <ng-template pTemplate="content">
+          <div class="text-2xl font-bold">{{ totalComments }}</div>
+        </ng-template>
+      </p-card>
+      <p-card header="Toplam Değerlendirme">
+        <ng-template pTemplate="content">
+          <div class="text-2xl font-bold">{{ totalRatings }}</div>
+        </ng-template>
+      </p-card>
+    </div>
+
+    <p-card styleClass="p-7 mb-8">
+      <ng-template pTemplate="header">
+        <h3 class="font-bold text-xl">Eğitim Metrikleri Karşılaştırması</h3>
+      </ng-template>
+      <ng-template pTemplate="content">
+        <p-chart
+          type="bar"
+          [data]="chartData"
+          [options]="chartOptions"
+          height="24rem"
+        ></p-chart>
+      </ng-template>
+    </p-card>
+
+    <p-card styleClass="p-7">
+      <ng-template pTemplate="header">
+        <h3 class="font-bold text-xl">Eğitim Detayları</h3></ng-template
+      >
+      <ng-template pTemplate="content">
+        <p-table [value]="courseAnalytics" styleClass="p-datatable-gridlines">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Eğitim Adı</th>
+              <th>İzlenme</th>
+              <th>Puan</th>
+              <th>Değerlendirme Sayısı</th>
+              <th>Yorum Sayısı</th>
+              <th>Yüklenme Tarihi</th>
+              <th></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-course>
+            <tr class="border">
+              <td>{{ course.title }}</td>
+              <td>{{ course.views }}</td>
+              <td>{{ course.rating.toFixed(1) }}</td>
+              <td>{{ course.ratingCount }}</td>
+              <td>{{ course.commentCount }}</td>
+              <td>{{ course.createdDate | date : "dd.MM.yyyy" }}</td>
+              <td>
+                <button
+                  type="button"
+                  class="border px-10 py-2 text-sm rounded hover:bg-slate-200 transition-all flex gap-2"
+                  [routerLink]="[
+                    '/instructor',
+                    user.userID,
+                    'analysis',
+                    course.id
+                  ]"
+                >
+                  <lucide-icon [img]="analizIcon" class="my-auto" />
+                  <span class="my-auto">Analiz</span>
+                </button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </ng-template>
+    </p-card>
+  </div>
+</div>

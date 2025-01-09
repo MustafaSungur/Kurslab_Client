@@ -1,0 +1,118 @@
+<p-dialog
+  [(visible)]="visible"
+  [modal]="true"
+  [closable]="true"
+  header="Yeni Eğitim Yükle"
+  (onHide)="onCancel()"
+  styleClass="w-6/12 flex flex-col mx-auto overflow-hidden relative"
+>
+  <p-progressSpinner
+    ariaLabel="loading"
+    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50"
+    *ngIf="loading"
+  />
+  <form [formGroup]="courseForm" (ngSubmit)="handleUpload()" class="w-full">
+    <div class="p-dialog-content">
+      <div class="space-y-4">
+        <!-- Eğitim Başlığı -->
+        <div class="field">
+          <label for="title" class="block font-bold">Eğitim Başlığı</label>
+          <input
+            id="title"
+            type="text"
+            formControlName="title"
+            class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500 mt-1"
+            placeholder="Eğitim başlığını girin"
+          />
+        </div>
+
+        <!-- Açıklama -->
+        <div class="field">
+          <label for="description" class="block font-bold">Açıklama</label>
+          <textarea
+            id="description"
+            formControlName="description"
+            class="w-full mt-1 border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500"
+            rows="3"
+            placeholder="Açıklama girin"
+          ></textarea>
+        </div>
+
+        <!-- Kategori -->
+        <div class="field">
+          <label for="category" class="block font-bold">Kategori</label>
+          <p-treeSelect
+            [options]="categories"
+            formControlName="category"
+            placeholder="Kategori"
+            class="md:w-80 w-full"
+            containerStyleClass="w-full"
+            appendTo="body"
+          ></p-treeSelect>
+        </div>
+
+        <!-- Etiketler -->
+        <div class="field">
+          <label for="tags" class="block font-bold"
+            >Etiketler (En fazla 3 en az 1 etiket seçiniz)</label
+          >
+          <p-multiSelect
+            [options]="tags"
+            formControlName="tags"
+            placeholder="Etiket seçin"
+            [maxSelectedLabels]="3"
+            class="w-full"
+            (onChange)="handleTagChange($event)"
+          ></p-multiSelect>
+        </div>
+
+        <!-- Resim Yükleme -->
+        <div class="field">
+          <label for="image" class="block font-bold">Küçük Resim Yükle</label>
+          <p-fileUpload
+            #imageUpload
+            name="image"
+            mode="basic"
+            [auto]="true"
+            customUpload
+            (uploadHandler)="onImageUpload($event, imageUpload)"
+            accept="image/*"
+            chooseLabel="Resim Seç"
+            class="w-full"
+          ></p-fileUpload>
+        </div>
+        <div *ngIf="previewImageUrl" class="mt-2">
+          <img
+            *ngIf="selectedImage; else courseImage"
+            [src]="previewImageUrl"
+            alt="Profile Preview"
+            class="w-24 h-24 object-cover border"
+          />
+          <ng-template #courseImage>
+            <img
+              [appResourceUrl]="previewImageUrl"
+              alt="Profile Preview"
+              class="w-24 h-24 object-cover border"
+            />
+          </ng-template>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex justify-between gap-5 mt-10">
+      <button
+        class="bg-red-500 hover:bg-red-600 text-white md:w-auto w-full px-7 py-3 rounded-3xl transition-all"
+        (click)="onDelete()"
+        [disabled]="loading"
+      >
+        Sil
+      </button>
+      <button
+        class="bg-amber-500 hover:bg-amber-600 text-white w-full md:w-auto px-4 py-3 rounded-3xl transition-all"
+        [disabled]="loading"
+      >
+        Güncelle
+      </button>
+    </div>
+  </form>
+</p-dialog>
