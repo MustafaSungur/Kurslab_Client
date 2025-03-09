@@ -23,28 +23,28 @@ frontend/
 ├── src/ # Main source folder
 │   ├── app/ # Main application folder
 │   │   ├── core/ # Core functionalities and services
-│   │   │   ├── directives/ # Custom directives
-│   │   │   ├── guards/ # Route guards
-│   │   │   ├── pipes/ # Custom pipes
-│   │   │   ├── services/ # Application services
-│   │   │   ├── strategies/ # Strategy management
+│   │   │   ├── directives/ 
+│   │   │   ├── guards/ 
+│   │   │   ├── pipes/ 
+│   │   │   ├── services/ 
+│   │   │   ├── strategies/ 
 │   │   ├── ui/ # UI components and pages
-│   │   │   ├── admin/ # Admin pages and componets    
-│   │   │   ├── auth/ # Authentication pages and componets    
-│   │   │   ├── instructor/ # Instructor-related pages and componets    
-│   │   │   ├── main/ # Main pages and componets    
-│   │   │   ├── page404/ # 404 error page
+│   │   │   ├── admin/  
+│   │   │   ├── auth/ 
+│   │   │   ├── instructor/ 
+│   │   │   ├── main/ 
+│   │   │   ├── page404/ 
 │   │   │   ├── shared/ # Shared UI components
-│   │   │   ├── unauthorized/ # Unauthorized access page
-│   │   ├── app.component.css # Main CSS file
-│   │   ├── app.component.html # Main HTML component
-│   │   ├── app.component.spec.ts # Test file
-│   │   ├── app.component.ts # Main component
-│   │   ├── app.config.ts # Application configuration
-│   │   ├── app.routes.ts # Routing configuration
-│   ├── assets/ # Static assets (images, icons, etc.)
-│   ├── environments/ # Environment configuration files
-│   ├── favicon.ico # Favicon for the application
+│   │   │   ├── unauthorized/ 
+│   │   ├── app.component.css 
+│   │   ├── app.component.html 
+│   │   ├── app.component.spec.ts 
+│   │   ├── app.component.ts 
+│   │   ├── app.config.ts 
+│   │   ├── app.routes.ts 
+│   ├── assets/ 
+│   ├── environments/ 
+│   ├── favicon.ico 
 ```
 
 Screenshots:
