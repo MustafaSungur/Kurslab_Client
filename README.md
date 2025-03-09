@@ -28,16 +28,11 @@ frontend/
 │   │   │   ├── pipes/ # Custom pipes
 │   │   │   ├── services/ # Application services
 │   │   │   ├── strategies/ # Strategy management
-│   │   ├── ui/ # UI components
-│   │   │   ├── admin/ # Admin panel components
-│   │   │   │   ├── components/ # Admin-specific components
-│   │   │   │   │   ├── admin-sidebar/ # Admin sidebar menu
-│   │   │   │   │   ├── category-management/ # Category management
-│   │   │   │   │   ├── tags-management/ # Tag management
-│   │   │   │   ├── pages/ # Admin pages
-│   │   │   ├── auth/ # Authentication pages
-│   │   │   ├── instructor/ # Instructor-related pages
-│   │   │   ├── main/ # Main page components
+│   │   ├── ui/ # UI components and pages
+│   │   │   ├── admin/ # Admin pages and componets    
+│   │   │   ├── auth/ # Authentication pages and componets    
+│   │   │   ├── instructor/ # Instructor-related pages and componets    
+│   │   │   ├── main/ # Main pages and componets    
 │   │   │   ├── page404/ # 404 error page
 │   │   │   ├── shared/ # Shared UI components
 │   │   │   ├── unauthorized/ # Unauthorized access page
