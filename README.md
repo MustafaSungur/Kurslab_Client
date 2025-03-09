@@ -17,8 +17,40 @@ Technologies Used:
 - PrimeNG
 - Tailwind CSS
 
-Project Structure:
-frontend/ ├── src/ # Main source folder │ ├── app/ # Main application folder │ │ ├── core/ # Core functionalities and services │ │ │ ├── directives/ # Custom directives │ │ │ ├── guards/ # Route guards │ │ │ ├── pipes/ # Custom pipes │ │ │ ├── services/ # Application services │ │ │ ├── strategies/ # Strategy management │ │ ├── ui/ # UI components │ │ │ ├── admin/ # Admin panel components │ │ │ │ ├── components/ # Admin-specific components │ │ │ │ │ ├── admin-sidebar/ # Admin sidebar menu │ │ │ │ │ ├── category-management/ # Category management │ │ │ │ │ ├── tags-management/ # Tag management │ │ │ │ ├── pages/ # Admin pages │ │ │ ├── auth/ # Authentication pages │ │ │ ├── instructor/ # Instructor-related pages │ │ │ ├── main/ # Main page components │ │ │ ├── page404/ # 404 error page │ │ │ ├── shared/ # Shared UI components │ │ │ ├── unauthorized/ # Unauthorized access page │ │ ├── app.component.css # Main CSS file │ │ ├── app.component.html # Main HTML component │ │ ├── app.component.spec.ts # Test file │ │ ├── app.component.ts # Main component │ │ ├── app.config.ts # Application configuration │ │ ├── app.routes.ts # Routing configuration │ ├── assets/ # Static assets (images, icons, etc.) │ ├── environments/ # Environment configuration files │ ├── favicon.ico # Favicon for the application
+## Project Structure
+```
+frontend/
+├── src/ # Main source folder
+│   ├── app/ # Main application folder
+│   │   ├── core/ # Core functionalities and services
+│   │   │   ├── directives/ # Custom directives
+│   │   │   ├── guards/ # Route guards
+│   │   │   ├── pipes/ # Custom pipes
+│   │   │   ├── services/ # Application services
+│   │   │   ├── strategies/ # Strategy management
+│   │   ├── ui/ # UI components
+│   │   │   ├── admin/ # Admin panel components
+│   │   │   │   ├── components/ # Admin-specific components
+│   │   │   │   │   ├── admin-sidebar/ # Admin sidebar menu
+│   │   │   │   │   ├── category-management/ # Category management
+│   │   │   │   │   ├── tags-management/ # Tag management
+│   │   │   │   ├── pages/ # Admin pages
+│   │   │   ├── auth/ # Authentication pages
+│   │   │   ├── instructor/ # Instructor-related pages
+│   │   │   ├── main/ # Main page components
+│   │   │   ├── page404/ # 404 error page
+│   │   │   ├── shared/ # Shared UI components
+│   │   │   ├── unauthorized/ # Unauthorized access page
+│   │   ├── app.component.css # Main CSS file
+│   │   ├── app.component.html # Main HTML component
+│   │   ├── app.component.spec.ts # Test file
+│   │   ├── app.component.ts # Main component
+│   │   ├── app.config.ts # Application configuration
+│   │   ├── app.routes.ts # Routing configuration
+│   ├── assets/ # Static assets (images, icons, etc.)
+│   ├── environments/ # Environment configuration files
+│   ├── favicon.ico # Favicon for the application
+```
 
 Screenshots:
 1. Home Page ![Screenshot_4](https://github.com/user-attachments/assets/76d89e68-1e8a-44fa-926c-779dd8cdf239)
